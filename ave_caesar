@@ -1,0 +1,32 @@
+def cesar_cypher(offset, source):
+     return encryption(source, ord('z'), ord('Z'), offset, 26)
+
+def encryption(source, lower_limit, upper_limit, offset, alpha_power):
+    result = ''
+    for cymbol in source:
+        if cymbol.isalpha():
+            if cymbol.isupper():
+                if offset + ord(cymbol) > upper_limit:
+                    result += chr(offset + ord(cymbol) - alpha_power)
+                else:
+                    result += chr(offset + ord(cymbol))
+            else:
+                if offset + ord(cymbol) > lower_limit:
+                    result += chr(offset + ord(cymbol) - alpha_power)
+                else:
+                    result += chr(offset + ord(cymbol))
+        else:
+            result += cymbol
+    return result
+
+
+abc = input()
+abc = abc.strip().lstrip()
+abc_list = [i for i in abc.split()]
+abc_crypted = []
+for ii in range(len(abc_list)):
+    word_cymbols = [c for c in abc_list[ii] if c.isalpha()]
+    abc_crypted.append(cesar_cypher(len(word_cymbols), abc_list[ii]))
+    word_cymbols.clear()
+result = ' '.join(abc_crypted)
+print(result)
